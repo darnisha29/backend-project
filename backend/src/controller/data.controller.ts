@@ -26,13 +26,14 @@ export const getData = async (req: express.Request, res: express.Response, next:
         const selectColumns = metadata.map(column => `[${column}]`).join(',');
 
 
+
         const result = await connection.query(`
             SELECT ${selectColumns}
             FROM [company].[dbo].[${tableNames}]
         `);
 
         if (result.recordset.length > 0) {
-            res.json({ data: result.recordset[0], message: RESPONSE_MESSAGE.__SUCCESS('Data gets') }).status(STATUS_CODE.__SUCCESS);
+            res.json({ data: result.recordset, message: RESPONSE_MESSAGE.__SUCCESS('Data gets') }).status(STATUS_CODE.__SUCCESS);
         } else {
             res.json({ message: RESPONSE_MESSAGE.__NOTFOUND('Data') }).status(STATUS_CODE.__NOTFOUND);
         }
