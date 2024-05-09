@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import  { useEffect, useState } from 'react';
 import './TableForm.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ChildComponentProps {
   
@@ -52,6 +54,7 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
           axios
       .post(`http://localhost:8000/api/data?tableName=${tableName}`,{fields}) 
       .then((response) => {
+        toast.success("submited successfully!");
         console.log("here is the response ..........",response.data);
         const result = response.data;
         console.log(result);

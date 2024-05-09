@@ -9,9 +9,11 @@
     width: 800px;
     margin-top: 100px;
     margin-bottom: 50px;
+    /* background-color: ; */
 }
 .form-container h2{
     text-align: center;
+    /* color: white; */
 }
 .form{
     display: flex;
@@ -46,6 +48,7 @@
     text-align: start;
     width: 200px;
     margin-right: 20px;
+    /* color: white; */
 }
 .form-fields input{ 
     width: 400px;
@@ -53,5 +56,6 @@
     border: none;
     border-radius: 5px;
     border-bottom: 3px solid darkblue;
+    font-size: 20px;
     
 }

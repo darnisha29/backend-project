@@ -19,7 +19,7 @@ const Update: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}) =
       <button><Link to = {{
         pathname: `/Entries/${tableName}`,
         
-      } as To }>Entries</Link></button>
+      } as To } className='link'>Entries</Link></button>
         </div>
         <div className='content'>
             <p>Created at: </p>
