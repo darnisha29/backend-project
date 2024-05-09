@@ -48,6 +48,19 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
             )
           : {}, 
         onSubmit: (values) => {
+          const fields = values
+          axios
+      .post(`http://localhost:8000/api/data?tableName=${tableName}`,{fields}) 
+      .then((response) => {
+        console.log("here is the response ..........",response.data);
+        const result = response.data;
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error('Error fetching metadata:', error);
+      });
+
+          // http://localhost:8000/api/data?tableName=company_data
           console.log('Form submitted with values:', values);
         },
       });
@@ -59,7 +72,7 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
           {metadata.map((field) => (
             <div key={field['columnName']} className='form-fields'>
               <label htmlFor={field['columnName']}>{field['columnName']}</label>
-              
+              <br></br>
               <input
                 id={field['columnName']}
                 name={field['columnName']}
