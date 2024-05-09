@@ -22,6 +22,16 @@ export class CreateTabel1715069957702 implements MigrationInterface {
                     isNullable: false
                 },
                 {
+                    name: 'firstName',
+                    type: 'varchar',
+                    isNullable: true,
+                },
+                {
+                    name: 'lastName',
+                    type: 'varchar',
+                    isNullable: true,
+                },
+                {
                     name: 'password',
                     type: 'varchar',
                     isNullable: false
@@ -31,6 +41,17 @@ export class CreateTabel1715069957702 implements MigrationInterface {
                     type: 'varchar',
                     isNullable: false
                 },
+                {
+                    name: 'created_at',
+                    type: 'datetimeoffset',
+                    default: 'SYSDATETIMEOFFSET()',
+                    isNullable: false,
+                }, {
+                    name: 'updated_at',
+                    type: 'datetimeoffset',
+                    default: 'SYSDATETIMEOFFSET()',
+                    isNullable: false,
+                }
             ]
         }))
 
@@ -39,17 +60,29 @@ export class CreateTabel1715069957702 implements MigrationInterface {
             name: 'company_data',
             columns: [
                 {
-                    name: 'company_id',
+                    name: 'id',
                     type: 'int',
+                    generationStrategy: 'increment',
                     isPrimary: true,
-                    isNullable: false,
-                    isGenerated: true
+                    isGenerated: true,
+                    isNullable: false
                 },
                 {
                     name: 'company_name',
                     type: 'varchar',
                     isNullable: false
                 },
+                {
+                    name: 'created_at',
+                    type: 'datetimeoffset',
+                    default: 'SYSDATETIMEOFFSET()',
+                    isNullable: false,
+                }, {
+                    name: 'updated_at',
+                    type: 'datetimeoffset',
+                    default: 'SYSDATETIMEOFFSET()',
+                    isNullable: false,
+                }
             ]
         }));
 
@@ -57,11 +90,12 @@ export class CreateTabel1715069957702 implements MigrationInterface {
         queryRunner.createTable(new Table({
             name: 'product_data',
             columns: [{
-                name: 'product_id',
+                name: 'id',
                 type: 'int',
+                generationStrategy: 'increment',
                 isPrimary: true,
-                isNullable: false,
-                isGenerated: true
+                isGenerated: true,
+                isNullable: false
             }, {
                 name: 'product_name',
                 type: 'varchar',
@@ -82,12 +116,23 @@ export class CreateTabel1715069957702 implements MigrationInterface {
                 type: 'int',
                 isNullable: false,
             },
+            {
+                name: 'created_at',
+                type: 'datetimeoffset',
+                default: 'SYSDATETIMEOFFSET()',
+                isNullable: false,
+            }, {
+                name: 'updated_at',
+                type: 'datetimeoffset',
+                default: 'SYSDATETIMEOFFSET()',
+                isNullable: false,
+            }
             ],
             foreignKeys: [
                 {
                     columnNames: ['company_id'],
                     referencedTableName: 'company_data',
-                    referencedColumnNames: ['company_id'],
+                    referencedColumnNames: ['id'],
                     onDelete: 'CASCADE'
                 }
             ]
