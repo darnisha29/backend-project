@@ -7,7 +7,7 @@ import Update from './components/updates/Update';
 import TableForm from './components/Form/TableForm';
 function App() {
   const [metadata, setMetadata] = useState(null);
-  const [tableName,setTableName] = useState('');
+  const [tableName,setTableName] = useState('employee_data');
   let TABLE = 'employee_data';
   // http://localhost:8000/api/metaInfo?tableNames='employee_data'
 
@@ -47,10 +47,19 @@ function App() {
       console.log('Form submitted with values:', values);
     },
   });
+  // let content;
+  // switch (tableName) {
+  //   case 'employe_data':
+      
+  //     break;
+  
+  //   default:
+  //     break;
+  // }
   return (
     <div className="App">
       <Listing setTableName = {setTableName} tableName={tableName} TABLE = {TABLE}/>
-      <TableForm TABLE= {TABLE} />
+      <TableForm TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/>
       <Update/>
     </div>
   );

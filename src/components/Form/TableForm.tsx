@@ -5,14 +5,16 @@ import  { useEffect, useState } from 'react';
 import './TableForm.css';
 
 interface ChildComponentProps {
- 
+  
+ setTableName:any,
+  tableName:any,
   TABLE:any
 }
 
 // / http://localhost:8000/api/metaInfo?tableNames='employee_data'
 
 
-const TableForm: React.FC<ChildComponentProps> = ({TABLE}) => {
+const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}) => {
   
   
     const [metadata, setMetadata] = useState([]);
@@ -20,7 +22,7 @@ const TableForm: React.FC<ChildComponentProps> = ({TABLE}) => {
   useEffect(() => {
     console.log("useEffect..........");
     axios
-      .get(`http://localhost:8000/api/metaInfo?tableNames='product_data'`) 
+      .get(`http://localhost:8000/api/metaInfo?tableNames='${tableName}'`) 
       .then((response) => {
         console.log("here is the response ..........",response.data);
         const result = response.data;
@@ -36,7 +38,7 @@ const TableForm: React.FC<ChildComponentProps> = ({TABLE}) => {
       .catch((error) => {
         console.error('Error fetching metadata:', error);
       });
-  }, [TABLE]); 
+  }, [tableName]); 
 
 
     const formik = useFormik({
