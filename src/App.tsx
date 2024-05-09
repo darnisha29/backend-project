@@ -7,6 +7,9 @@ import Update from './components/updates/Update';
 import TableForm from './components/Form/TableForm';
 function App() {
   const [metadata, setMetadata] = useState(null);
+  const [tableName,setTableName] = useState('');
+  let TABLE = 'employee_data';
+  // http://localhost:8000/api/metaInfo?tableNames='employee_data'
 
   useEffect(() => {
     
@@ -29,6 +32,10 @@ function App() {
       });
   }, []); 
 
+  useEffect(() => {
+    console.log(tableName);
+  },[setTableName])
+
   
   const formik = useFormik({
     initialValues: metadata
@@ -42,8 +49,8 @@ function App() {
   });
   return (
     <div className="App">
-      <Listing/>
-      <TableForm/>
+      <Listing setTableName = {setTableName} tableName={tableName} TABLE = {TABLE}/>
+      <TableForm TABLE= {TABLE} />
       <Update/>
     </div>
   );

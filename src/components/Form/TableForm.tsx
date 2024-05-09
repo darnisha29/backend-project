@@ -4,14 +4,23 @@ import { useFormik } from 'formik';
 import  { useEffect, useState } from 'react';
 import './TableForm.css';
 
-const TableForm = () => {
+interface ChildComponentProps {
+ 
+  TABLE:any
+}
 
-    const [metadata, setMetadata] = useState(null);
+// / http://localhost:8000/api/metaInfo?tableNames='employee_data'
+
+
+const TableForm: React.FC<ChildComponentProps> = ({TABLE}) => {
+  
+  
+    const [metadata, setMetadata] = useState([]);
 
   useEffect(() => {
-    
+    console.log("useEffect..........");
     axios
-      .get('http://localhost:8000/api/metaInfo/') 
+      .get(`http://localhost:8000/api/metaInfo?tableNames='product_data'`) 
       .then((response) => {
         console.log("here is the response ..........",response.data);
         const result = response.data;
@@ -27,7 +36,7 @@ const TableForm = () => {
       .catch((error) => {
         console.error('Error fetching metadata:', error);
       });
-  }, []); 
+  }, [TABLE]); 
 
 
     const formik = useFormik({
@@ -45,13 +54,13 @@ const TableForm = () => {
       <h2>Form</h2>
       {metadata ? (
         <form onSubmit={formik.handleSubmit} className='form'>
-          {Object.keys(metadata).map((field) => (
-            <div key={field} className='form-fields'>
-              <label htmlFor={field}>{field}</label>
+          {metadata.map((field) => (
+            <div key={field['columnName']} className='form-fields'>
+              <label htmlFor={field['columnName']}>{field['columnName']}</label>
               
               <input
-                id={field}
-                name={field}
+                id={field['columnName']}
+                name={field['columnName']}
                 type={metadata[field] === 'int' ? 'number': metadata[field]}
                 onChange={formik.handleChange}
                 value={formik.values[field]}
