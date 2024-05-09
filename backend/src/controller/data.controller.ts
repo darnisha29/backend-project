@@ -34,7 +34,7 @@ export const getData = async (req: express.Request, res: express.Response, next:
         if (result.recordset.length > 0) {
             res.json({ data: result.recordset[0], message: RESPONSE_MESSAGE.__SUCCESS('Data gets') }).status(STATUS_CODE.__SUCCESS);
         } else {
-            res.json({ data: result, message: RESPONSE_MESSAGE.__NOTFOUND('Data') }).status(STATUS_CODE.__NOTFOUND);
+            res.json({ message: RESPONSE_MESSAGE.__NOTFOUND('Data') }).status(STATUS_CODE.__NOTFOUND);
         }
     } catch (error) {
         res.json({ error: RESPONSE_MESSAGE.__FAIL('Get employee') }).status(STATUS_CODE.__FAIL);
