@@ -5,7 +5,7 @@ import { DataSource } from 'typeorm';
 import cors from 'cors';
 import metaRoute from './routes/meta-route.routes';
 import tableRoute from './routes/tables-routes.routes';
-import employeeRoute from './routes/employee.routes';
+import dataRoute from './routes/data.routes';
 
 const port = 8000;
 
@@ -26,7 +26,7 @@ initializeDataSource(AppDataSource)
         
         server.use("/api/tableNames/",tableRoute);//http://localhost:8000/api/tableNames
         server.use("/api/metaInfo/", metaRoute);//http://localhost:8000/api/metaInfo?tableNames='employee_data'
-        server.use("/api/employeeData/", employeeRoute);//GET-http://localhost:8000/api/employeeData?emp_id='1'&tableNames='employee_data'//POST-http://localhost:8000/api/employeeData
+        server.use("/api/data/", dataRoute);//GET-http://localhost:8000/api/data?tableNames=company_data //POST-http://localhost:8000/api/data?tableName=company_data
         
         server.listen(port, () => console.log(`Server started on http://localhost:${port}`));
     })
