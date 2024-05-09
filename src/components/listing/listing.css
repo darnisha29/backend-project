@@ -1,0 +1,20 @@
+.tables-container{
+ /* border-right: 2px solid gray; */
+ /* margin-top: 50px; */
+ /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
+ border-right:1px solid gray ;
+ width: 350px;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ /* border-radius: 10px; */
+}
+
+.tables-container p {
+    font-size: 24px;
+
+    text-align: center;
+    cursor: pointer;
+    /* border: 1px solid black; */
+}
