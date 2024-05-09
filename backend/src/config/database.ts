@@ -1,42 +1,46 @@
 import { DataSource } from "typeorm";
-import { Product } from "../entity/product";
+import { Company } from "../entities/company.entity";
+import { Product } from "../entities/product.entity";
+import { Employee } from "../entities/employee.entity";
 
-interface MSSQLConfig {
-  server: string;
-  port: number;
-  database: string;
-  options: {
-    trustedConnection?: boolean;
-    encrypt?: boolean;
-    enableArithAbort?: boolean;
-    trustServerCertificate?: boolean;
-  };
-}
+// interface MSSQLConfig {
+  
+//   server: string;
+//   port: number;
+//   database: string;
+//   options: {
+//     trustedConnection?: boolean;
+//     encrypt?: boolean;
+//     enableArithAbort?: boolean;
+//     trustServerCertificate?: boolean;
+//   };
+// }
 
 
-export const mssqlConfig: MSSQLConfig = {
-  server:  'LAPTOP-40LICU46', 
-  port: 1433, 
-  database: 'metaInfo', 
+export const mssqlConfig = {
+  user:'sa',
+  password:'Mayur@3',
+  server: 'LAPTOP-NQTC30NN',
+  port: 1433,
+  database: 'company',
   options: {
     trustedConnection: true,
-    encrypt: true, 
-    enableArithAbort: true, 
-    trustServerCertificate: true, 
+    encrypt: true,
+    enableArithAbort: true,
+    trustServerCertificate: true,
   },
 };
 
 export const AppDataSource = new DataSource({
   ...mssqlConfig,
-  username:'sa',
-  password:'123456', 
   type: "mssql",
-  host:'localhost', 
-  entities: [Product], 
-  synchronize: false, 
-  logging: true, 
-  migrationsTableName: "Migration_table", 
-  migrations: ["src/migrations/*{.ts,.js}"], 
+  username: 'sa',
+  password: 'Mayur@3',
+  host: 'LAPTOP-NQTC30NN',
+  entities: [Company,Product,Employee],
+  synchronize: false,
+  logging: true,
+  migrations: ["src/migrations/*{.ts,.js}"],
 });
 
 
