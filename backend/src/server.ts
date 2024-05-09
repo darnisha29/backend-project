@@ -26,7 +26,7 @@ initializeDataSource(AppDataSource)
         
         server.use("/api/tableNames/",tableRoute);//http://localhost:8000/api/tableNames
         server.use("/api/metaInfo/", metaRoute);//http://localhost:8000/api/metaInfo?tableNames='employee_data'
-        server.use("/api/employeeData/", employeeRoute);//GET-http://localhost:8000/api/employeeData?emp_id='1'//POST-http://localhost:8000/api/employeeData
+        server.use("/api/employeeData/", employeeRoute);//GET-http://localhost:8000/api/employeeData?emp_id='1'&tableNames='employee_data'//POST-http://localhost:8000/api/employeeData
         
         server.listen(port, () => console.log(`Server started on http://localhost:${port}`));
     })
