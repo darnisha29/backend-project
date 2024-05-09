@@ -1,6 +1,7 @@
 import express from 'express'
 import { mssqlConfig } from '../config/database';
 import { ConnectionPool } from 'mssql';
+import { RESPONSE_MESSAGE, STATUS_CODE } from '../constants';
 
 const pool = new ConnectionPool(mssqlConfig);
 
@@ -13,12 +14,11 @@ export const tabelNames = async (req: express.Request, res: express.Response, ne
             })
             .then(result =>{
                 const tableNames = result.recordset.map(row => row.TABLE_NAME);
-                res.send({message:'All table name get successfully',data:tableNames}).status(200)
+                res.send({message:RESPONSE_MESSAGE.__SUCCESS('table name get'),data:tableNames}).status(STATUS_CODE.__SUCCESS)
             }
         )
 
     } catch (error) {
-        console.log(error);
-
+        res.json({ error: RESPONSE_MESSAGE.__FAIL('Get tabl data') }).status(STATUS_CODE.__FAIL);
     }
 }
