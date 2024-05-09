@@ -1,11 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Company } from "./company.entity";
+import { Base } from "./base.entity";
 
 @Entity({name:'product_data'})
-export class Product {
-
-    @PrimaryGeneratedColumn()
-    product_id: number
+export class Product extends Base{
 
     @Column()
     product_name: string

@@ -9,7 +9,6 @@ const pool = new ConnectionPool(mssqlConfig);
 export const getEmployeeData = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const {emp_id} = req.query
-
         pool
             .connect()
             .then(() => {

@@ -13,7 +13,6 @@ export const tabelNames = async (req: express.Request, res: express.Response, ne
             })
             .then(result =>{
                 const tableNames = result.recordset.map(row => row.TABLE_NAME);
-                console.log('Table Names:', tableNames);
                 res.send({message:'All table name get successfully',data:tableNames}).status(200)
             }
         )

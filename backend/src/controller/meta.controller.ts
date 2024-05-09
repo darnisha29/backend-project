@@ -11,7 +11,7 @@ export const getMetaData =async (req: Request, res: Response) => {
         const result = await connection.request().query(`SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ${tableNames}`);
         
         const metadata = result.recordset
-            .filter((row: any) => row.COLUMN_NAME !== 'id')
+            .filter((row: any) => row.COLUMN_NAME !== 'id' && row.COLUMN_NAME !== 'created_at' && row.COLUMN_NAME !== 'updated_at') 
             .map((row: any) => ({
                 columnName: row.COLUMN_NAME,
                 dataType: row.DATA_TYPE
