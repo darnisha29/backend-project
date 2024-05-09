@@ -10,6 +10,12 @@ export class Employee {
     email: string;
 
     @Column()
+    firstName:string
+
+    @Column()
+    lastName:string
+
+    @Column()
     password: string;
 
     @Column()
