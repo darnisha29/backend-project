@@ -21,10 +21,10 @@ const Update: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}) =
         
       } as To } className='link'>Entries</Link></button>
         </div>
-        <div className='content'>
+       {/* <div className='content'>
             <p>Created at: </p>
             <p>Updated at: </p>
-        </div>
+        </div>  */}
     </div>
   )
 }
