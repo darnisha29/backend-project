@@ -1,65 +1,31 @@
 import  { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import { useFormik } from 'formik';
+import { Form, useFormik } from 'formik';
+import Listing from './components/listing/Listing';
+import Update from './components/updates/Update';
+import TableForm from './components/Form/TableForm';
+import { Route, Routes } from 'react-router-dom';
+import FormPage from './pages/FormPage';
+import EntriesPage from './pages/EntriesPage';
 function App() {
   const [metadata, setMetadata] = useState(null);
+  const [tableName,setTableName] = useState('employee_data');
+  const [entries,setEntries] = useState(false);
+  let TABLE = 'employee_data';
+  // http://localhost:8000/api/metaInfo?tableNames='employee_data'
 
-  useEffect(() => {
-    
-    axios
-      .get('http://localhost:8000/api/metaInfo/') 
-      .then((response) => {
-        console.log("here is the response ..........",response.data);
-        const result = response.data;
-        // const values = Object.values(result);
-        // console.log(values);
-        
-
-        if (response.data) {
-          setMetadata(response.data);
-          // console.log("here is the response ..........",metadata);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching metadata:', error);
-      });
-  }, []); 
-
-  
-  const formik = useFormik({
-    initialValues: metadata
-      ? Object.fromEntries(
-          Object.keys(metadata).map((key) => [key, '']) 
-        )
-      : {}, 
-    onSubmit: (values) => {
-      console.log('Form submitted with values:', values);
-    },
-  });
   return (
-    <div className="App">
-      {metadata ? (
-        <form onSubmit={formik.handleSubmit}>
-          {Object.keys(metadata).map((field) => (
-            <div key={field}>
-              <label htmlFor={field}>{field}</label>
-              
-              <input
-                id={field}
-                name={field}
-                type={metadata[field] === 'int' ? 'number': metadata[field]}
-                onChange={formik.handleChange}
-                value={formik.values[field]}
-              />
-            {/* <label htmlFor={field}>{metadata[field]}</label> */}
-            </div>
-          ))}
-          <button type="submit">Submit</button>
-        </form>
-      ) : (
-        <p>Loading metadata...</p>
-      )}
+    <div>
+      <Routes>
+       
+      <Route path="/" element={<FormPage />} />
+      <Route path="/Entries/:tableName" element={<EntriesPage />} />
+      </Routes>
+    
+      {/* <Listing setTableName = {setTableName} tableName={tableName} TABLE = {TABLE}/>
+      <TableForm TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/>
+      <Update/> */}
     </div>
   );
 }

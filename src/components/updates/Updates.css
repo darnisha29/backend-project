@@ -1,0 +1,41 @@
+.content{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 400px;
+    padding: 30px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    /* height: 250px; */
+}
+
+.updates-container{
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+    margin-right: 20px;
+}
+.updates-buttons{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+
+    
+}
+.updates-container button{
+    width: 120px;
+    height:38px;
+    background-color: rgb(10, 10, 75);
+    border-radius: 5px;
+    border: 2px solid rgb(2, 2, 40);
+    font-size: 16px;
+    font-weight: 500;
+    color:white ;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+}
+.link{
+    color: white;
+    text-decoration: none;
+}
+
