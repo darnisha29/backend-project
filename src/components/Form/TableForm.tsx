@@ -8,6 +8,7 @@
   import { validateYupSchema } from 'formik';
   import { number } from 'yup';
   import * as Yup from 'yup'; 
+import Update from '../updates/Update';
 
   interface ChildComponentProps {
     
@@ -113,6 +114,8 @@
           },
         });
     return (
+      <div className='main'>
+        <Update TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/>
       <div className='form-container'>
         <h2>Form</h2>
         {metadata ? (
@@ -138,6 +141,7 @@
         ) : (
           <p>Loading metadata...</p>
         )}
+      </div>
       </div>
     )
   }

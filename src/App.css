@@ -1,7 +1,9 @@
 .App {
+  /* max-width:1440px; */
+  /* margin: auto; */
   display: flex;
   gap:50px;
-  justify-content: space-between;
+  /* justify-content:center; */
   /* align-items: center; */
   /* background-color: rgb(4, 14, 24,0.6); */
   /* background-color: rgb(11, 7, 18); */

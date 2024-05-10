@@ -21,7 +21,7 @@ const FormPage = () => {
       
       <Listing setTableName = {setTableName} tableName={tableName} TABLE = {TABLE}/>
       <TableForm TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/>
-      <Update TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/>
+      {/* <Update TABLE= {TABLE} setTableName = {setTableName} tableName={tableName}/> */}
     </div>
   )
 }
