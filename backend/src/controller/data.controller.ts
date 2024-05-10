@@ -20,7 +20,7 @@ export const getData = async (req: express.Request, res: express.Response, next:
         `);
 
         const metadata = tableData.recordset
-            .filter((row: any) => row.COLUMN_NAME !== 'id' && row.COLUMN_NAME !== 'created_at' && row.COLUMN_NAME !== 'updated_at' && row.COLUMN_NAME !== 'password')
+            .filter((row: any) => row.COLUMN_NAME !== 'id' && row.COLUMN_NAME !== 'created_at' && row.COLUMN_NAME !== 'updated_at' && row.COLUMN_NAME !== 'password' && row.COLUMN_NAME !== 'company_id')
             .map((row: any) => row.COLUMN_NAME);
 
         const selectColumns = metadata.map(column => `[${column}]`).join(',');
