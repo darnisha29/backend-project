@@ -19,8 +19,8 @@ import { Employee } from "../entities/employee.entity";
 
 export const mssqlConfig = {
   user:'sa',
-  password:'Mayur@3',
-  server: 'LAPTOP-NQTC30NN',
+  password:'123456',
+  server: 'LAPTOP-40LICU46',
   port: 1433,
   database: 'company',
   options: {
@@ -35,7 +35,7 @@ export const AppDataSource = new DataSource({
   ...mssqlConfig,
   type: "mssql",
   username: 'sa',
-  password: 'Mayur@3',
+  password: '123456',
   host: 'localhost',
   entities: [Company,Product,Employee],
   synchronize: false,

@@ -1,76 +1,64 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Link, To, useLocation, useParams } from 'react-router-dom';
-import { Location } from 'history';
-import { object } from 'yup';
-import './entries.css'
-
-interface State {
-    Name?: string;
-  }
+import React, { useEffect, useState } from 'react';
+import { Link, To, useParams } from 'react-router-dom';
+import './entries.css';
 
 const EntriesPage = () => {
-    const [entryData, setEntryData] = useState<Record<string, any>>([]);
-//     const location = useLocation();
-  
-//   const state = location.state as State;
+  const [entryData, setEntryData] = useState([]);
+  const { tableName } = useParams<{ tableName: string }>();
 
-//   // Access the value passed through the state
-//   console.log("here is the table name",state);
-//   const tableName = state?.Name ?? 'DefaultTable';
-
-const { tableName } = useParams<{ tableName: string }>();
-console.log("here is the table name",tableName);
-
-    useEffect(() => {
-
-        axios
-        .get(`http://localhost:8000/api/data?tableNames=${tableName}`) 
-        .then((response) => {
-        //   console.log("here is the response .......... in Entries page",response.data);
-        //   console.log("here is the response .......... in Entries page",response.data);
-        //   setTables(response.data.data)
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/data?tableNames=${tableName}`)
+      .then((response) => {
         setEntryData(response.data.data);
-        console.log(response.data.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching metadata:', error);
-        });
-    },[]);
-  return (
-    
-      <div className='main-container'>
-        <button><Link to = {{
-        pathname: `/`,
         
-      } as To } className='link'>Form</Link></button>
-      <div className='entries'>
-      <h2>Data for Table: {tableName}</h2>
-      
-      {entryData ? (
-        entryData.map((object:any, index:any) => (
-          <div key={`object-${index}`}>
-            
-            <h3> {index + 1}</h3> {/* Using index to number objects */}
-            <p> {'{'} </p>
-            {Object.entries(object).map(([key, value], subIndex) => (
-              <p key={`entry-${index}-${subIndex}`}>
-                {key}: "{object[key]}"
-              </p>
-            ))}
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, [tableName]);
 
-            <p> {'}'} </p>
-          </div>
-        ))
-      ) 
-      : (
-        <p>No Data Available</p>
-      )
-      }
+  const columns = entryData.length > 0 ? Object.keys(entryData[0]) : [];
+
+  return (
+    <div className='main-container'>
+      <button>
+        <Link to={{ pathname: `/` } as To} className='link'>
+          Form
+        </Link>
+      </button>
+
+      <div className='entries'>
+        <h2>Data for Table: {tableName}</h2>
+
+        {entryData.length > 0 ? (
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>#</th> {/* Row numbering */}
+                {columns.map((column) => (
+                  <th key={column}>{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {entryData.map((entry, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td> {/* Row number */}
+                  {columns.map((column) => (
+                    <td key={column}>{entry[column]}</td> 
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No Data Available</p>
+        )}
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default EntriesPage
+export default EntriesPage;
