@@ -11,13 +11,14 @@ const EntriesPage = () => {
     axios
       .get(`http://localhost:8000/api/data?tableNames=${tableName}`)
       .then((response) => {
-        setEntryData(response.data.data);
         
+        setEntryData(response.data.data);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-  }, [tableName]);
+    }, [tableName]);
+    console.log(entryData);
 
   const columns = entryData.length > 0 ? Object.keys(entryData[0]) : [];
 
