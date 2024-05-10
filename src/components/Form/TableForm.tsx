@@ -5,6 +5,9 @@ import  { useEffect, useState } from 'react';
 import './TableForm.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { validateYupSchema } from 'formik';
+import { number } from 'yup';
+import * as Yup from 'yup'; 
 
 interface ChildComponentProps {
   
@@ -33,8 +36,33 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
         
 
         if (response.data) {
+         
           setMetadata(response.data);
-          // console.log("here is the response ..........",metadata);
+          const data = metadata
+
+          // data.forEach((field:any) => {
+          //   console.log(field);
+          //   if(field['dataType'] === 'int'||'float'||'double')
+          //     {
+          //       field['dataType'] = 'number'
+          //     }
+          //     if(field['dataType'] === 'string' || 'varchar')
+          //       {
+          //         field['dataType'] = 'text'
+          //       }
+          //       if(field['columnName'] === 'password'){
+          //         console.log( field['columnName']);
+          //         field['dataType'] = 'password'
+          //         console.log(field['dataType']);
+
+          //       }
+          //       if(field['columnName'] === 'email'){
+          //         field['dataType'] = 'email'
+          //       }
+          //       // if(field['type'])
+          // })
+          // setMetadata(data);
+          console.log("here is the response ..........",data);
         }
       })
       .catch((error) => {
@@ -42,6 +70,21 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
       });
   }, [tableName]); 
 
+  const validationSchema = Yup.object(
+    metadata.reduce((schema:any, field:any) => {
+      const fieldName = field['columnName'];
+      const fieldType = field['dataType'];
+      
+     
+      if (fieldType === 'int' || fieldType === 'float') {
+        schema[fieldName] = Yup.number().required(`${fieldName} is required`);
+      } else if (fieldType === 'text'){
+        schema[fieldName] = Yup.string().required(`${fieldName} is required`);
+      }
+
+      return schema;
+    }, {})
+  );
 
     const formik = useFormik({
         initialValues: metadata
@@ -49,6 +92,7 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
               Object.keys(metadata).map((key) => [key, '']) 
             )
           : {}, 
+          validationSchema,
         onSubmit: (values) => {
           const fields = values
           axios
@@ -79,11 +123,13 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
               <input
                 id={field['columnName']}
                 name={field['columnName']}
-                type={metadata[field] === 'int' ? 'number': metadata[field]}
+                type={field['dataType'] === 'int' ? 'number': field['columnName'] === 'password'? 'password':'text'}
                 onChange={formik.handleChange}
                 value={formik.values[field]}
-              />
-            {/* <label htmlFor={field}>{metadata[field]}</label> */}
+              /> 
+              {formik.touched[field['columnName']] && formik.errors[field['columnName']] && (
+                <div className="error-message">{formik.errors[field['columnName']]}</div>)}
+            {/* <label htmlFor={field}>{field['dataType']}</label> */}
             </div>
           ))}
           <button type="submit">Submit</button>
@@ -96,3 +142,6 @@ const TableForm: React.FC<ChildComponentProps> = ({setTableName,tableName,TABLE}
 }
 
 export default TableForm
+
+
+
