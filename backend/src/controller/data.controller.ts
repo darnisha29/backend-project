@@ -20,7 +20,7 @@ export const getData = async (req: express.Request, res: express.Response, next:
         `);
 
         const metadata = tableData.recordset
-            .filter((row: any) => row.COLUMN_NAME !== 'id' && row.COLUMN_NAME !== 'created_at' && row.COLUMN_NAME !== 'updated_at' && row.COLUMN_NAME !== 'password' && row.COLUMN_NAME !== 'role')
+            .filter((row: any) => row.COLUMN_NAME !== 'id' && row.COLUMN_NAME !== 'created_at' && row.COLUMN_NAME !== 'updated_at' && row.COLUMN_NAME !== 'password')
             .map((row: any) => row.COLUMN_NAME);
 
         const selectColumns = metadata.map(column => `[${column}]`).join(',');
@@ -115,7 +115,7 @@ export const postData = async (req:express.Request, res:express.Response) => {
             VALUES (${valuesPlaceholder});
         `;
 
-        const result = await request.query(query);
+        await request.query(query);
 
         res.status(200).json({ message: 'Data inserted successfully' });
     } catch (error) {
